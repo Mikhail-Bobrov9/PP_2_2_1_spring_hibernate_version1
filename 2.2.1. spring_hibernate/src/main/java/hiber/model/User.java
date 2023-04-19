@@ -7,6 +7,8 @@ public class User {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "user_id")
+//   @MapsId("id")
    private Long id;
 
    @Column(name = "name")
@@ -17,18 +19,18 @@ public class User {
 
    @Column(name = "email")
    private String email;
-
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "car_id",referencedColumnName = "id")
+//   @MapsId
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   @JoinColumn(name = "user_id",referencedColumnName = "id")
    private Car car;
 
    public User() {}
    
-   public User(String firstName, String lastName, String email, Car car) {
+   public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
-      this.car = car;
+//      this.car = car;
    }
 
    public Long getId() {
@@ -81,4 +83,6 @@ public class User {
               ", car = " + car +
               '}';
    }
+
+
 }

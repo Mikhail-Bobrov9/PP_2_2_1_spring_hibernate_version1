@@ -7,11 +7,10 @@ import java.io.Serializable;
 @Table(name = "car")
 public class Car implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne(mappedBy = "car",cascade = CascadeType.ALL)
+//
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
     private User user;
 
     @Column(name = "model")
@@ -19,6 +18,8 @@ public class Car implements Serializable {
 
     @Column(name = "series")
     private int series;
+    @Id
+    private Long id;
 
     public Car(String model, int series) {
         this.model = model;
@@ -55,7 +56,7 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "Car {" +
-                "id = " + id +
+                "user = " + user.getFirstName() + " " + user.getLastName() +
                 ", model = '" + model + '\'' +
                 ", series = " + series +
                 '}';

@@ -5,6 +5,7 @@ import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
 //import hiber.service.CarService;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,19 +19,36 @@ public class MainApp {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
-      Car car1 = new Car("BMW", 123);
-      Car car2 = new Car("KIA", 254);
-      Car car3 = new Car("AUDI", 376);
-      Car car4 = new Car("MB", 984);
+      CarService carService = context.getBean(CarService.class);
 
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru", car1));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru", car2));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru", car3));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru", car4));
-      userService.add(new User("User5", "Lastname5", "user5@mail.ru", new Car("LADA",911)));
-      userService.add(new User("User6", "Lastname6", "user6@mail.ru", new Car("HAVAL",543)));
-      User user = new User("User7", "Lastname7", "user7@mail.ru", new Car("MINI",243));
-      userService.add(user);
+      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
+      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
+      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
+      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      userService.add(new User("User5", "Lastname5", "user5@mail.ru"));
+      userService.add(new User("User6", "Lastname6", "user6@mail.ru"));
+
+      Car car1 = new Car("BMW", 123);
+      Car car2 = new Car("KIA", 12313);
+      Car car3 = new Car("AUDI", 5346754);
+      Car car4 = new Car("MB", 234);
+      Car car5 = new Car("LADA", 679);
+      Car car6 = new Car("DMC", 697579);
+
+      car1.setUser(userService.listUsers().get(0));
+      car2.setUser(userService.listUsers().get(1));
+      car3.setUser(userService.listUsers().get(2));
+      car4.setUser(userService.listUsers().get(3));
+      car5.setUser(userService.listUsers().get(4));
+      car6.setUser(userService.listUsers().get(5));
+
+      carService.add(car1);
+      carService.add(car2);
+      carService.add(car3);
+      carService.add(car4);
+      carService.add(car5);
+      carService.add(car6);
+
 
       List<User> users = userService.listUsers();
       for (User user2 : users) {
@@ -42,7 +60,7 @@ public class MainApp {
          System.out.println();
 
       }
-      System.out.println(userService.getUserByModelAndSeries("MB", 984));
+      System.out.println(userService.getUserByModelAndSeries("MB", 234));
 
       context.close();
    }
