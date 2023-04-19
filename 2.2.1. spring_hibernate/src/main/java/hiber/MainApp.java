@@ -1,13 +1,10 @@
 package hiber;
 
 import hiber.config.AppConfig;
-//import hiber.model.Car;
 import hiber.model.Car;
 import hiber.model.User;
-//import hiber.service.CarService;
 import hiber.service.CarService;
 import hiber.service.UserService;
-import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
@@ -58,8 +55,8 @@ public class MainApp {
          System.out.println("Email = "+user2.getEmail());
          System.out.println("Car = " + user2.getCar());
          System.out.println();
-
       }
+
       System.out.println(userService.getUserByModelAndSeries("MB", 234));
 
       context.close();
